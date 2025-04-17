@@ -1,0 +1,7 @@
+UPGRADE CLIENT:
+
+1. Update Fabric Properties in gradle.properties over premade config of website
+2. change settings.gradle current java ver
+3. update java project version
+4. update mc & loader version in mod.json
+5 upgrade loom version - important
