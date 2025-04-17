@@ -39,7 +39,7 @@ public abstract class TitleScreenMixin extends Screen {
      * @author Melonthedev
      * @reason Add Melonclient Buttons
      */
-    @Inject(method = "init", at = @At("TAIL"))
+    /*@Inject(method = "init", at = @At("TAIL"))
     public void initInject(CallbackInfo info) {
         Client.getInstance().getDiscordRP().updateMainMenu();
         this.addRenderableWidget(Button.builder(Component.literal("MelonClient"), (p_210872_) ->
@@ -47,7 +47,7 @@ public abstract class TitleScreenMixin extends Screen {
         this.addRenderableWidget(Button.builder(Component.literal("Skin & Cape"), button -> {
             minecraft.setScreen(new SkinCapeChangeScreen(this));
         }).bounds(this.width - this.width / 8 - 40, this.height / 4 + 132, 80, 20).build());
-    }
+    }*/
 
     /**
      * @author Melonthedev
@@ -106,10 +106,10 @@ public abstract class TitleScreenMixin extends Screen {
      * @author Melonthedev
      * @reason Stop Realm Symbol on MelonClient Button
      */
-    @Overwrite
-    private boolean realmsNotificationsEnabled() {
-        return false;
-    }
+    //@Overwrite
+    //private boolean realmsNotificationsEnabled() {
+    //    return false;
+    //}
 
     /**
      * @author Melonthedev

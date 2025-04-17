@@ -6,9 +6,13 @@ import net.minecraft.client.gui.GuiGraphics;
 public class RenderUtil {
 
     public static void drawMelonClientLogo(GuiGraphics guiGraphics, int x, int y) {
+        drawMelonClientLogo(guiGraphics, x, y, 256, 44);
+    }
+
+    public static void drawMelonClientLogo(GuiGraphics guiGraphics, int x, int y, int width, int height) {
         guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
-        guiGraphics.blit(MelonLogoTexture.MELONCLIENT_LOGO_LOCATION, x, y, 0.0F, 0.0F, 256, 44, 256, 64); // WIDTH???
+        guiGraphics.blit(MelonLogoTexture.MELONCLIENT_LOGO_LOCATION, x, y, 0.0F, 0.0F, width, height, 256, 64); 
         guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();
     }
