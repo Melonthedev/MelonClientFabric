@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "melonclient",
+  "version": "${version}",
+  "name": "Melonclient",
+  "description": "",
+  "authors": [
+    "Melonthedev"
+  ],
+  "contact": {
+    "website": "https://melonclient.melonthedev.wtf/",
+    "repo": "https://github.com/Melonthedev/MelonClient"
+  },
+  "license": "MIT",
+  "icon": "assets/melonclient/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "wtf.melonthedev.melonclient.client.MelonclientClient"
+    ],
+    "main": [
+      "wtf.melonthedev.melonclient.Melonclient"
+    ]
+  },
+  "mixins": [
+    "melonclient.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.13",
+    "fabric": "*",
+    "minecraft": ">=1.21.1"
+  }
+}
