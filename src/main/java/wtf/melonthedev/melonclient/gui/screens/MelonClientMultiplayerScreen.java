@@ -1,6 +1,7 @@
 package wtf.melonthedev.melonclient.gui.screens;
 
 import net.minecraft.client.gui.screens.GenericMessageScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.network.chat.Component;
 
@@ -8,8 +9,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class MelonClientMultiplayerScreen extends JoinMultiplayerScreen {
 
-    public MelonClientMultiplayerScreen() {
-        super(null);
+    public MelonClientMultiplayerScreen(Screen parent) {
+        super(parent);
     }
 
     @Override

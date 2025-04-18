@@ -61,8 +61,8 @@ public abstract class LoadingOverlayMixin {
      */
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIFFIIII)V"))
     public void blit(GuiGraphics guiGraphics, ResourceLocation rl, int i, int j, int k, int l, float f, float g, int m, int n, int o, int p) {
-        guiGraphics.blit(rl, i, j, k, l, f, g, m, n, o, p);
-        guiGraphics.blit(MelonLogoTexture.MELONCLIENT_LOGO_LOCATION, i, j + 60, k, l, f, g, m, n, o, p); // + progressbar runter setzen
+        guiGraphics.blit(rl, i, j - 50, k, l, f, g, m, n, o, p);
+        guiGraphics.blit(MelonLogoTexture.MELONCLIENT_LOGO_LOCATION, i, j + 10, k, l, f, g, m, n, o, p); // + progressbar runter setzen
     }
 
 }

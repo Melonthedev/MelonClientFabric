@@ -1,9 +1,14 @@
 package wtf.melonthedev.melonclient.gui.screens.clientmenu;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import wtf.melonthedev.melonclient.Client;
+import wtf.melonthedev.melonclient.gui.screens.WelcomeScreen;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
 
 public class MelonClientDeveloperOptionsScreen extends MelonScreen {
@@ -17,7 +22,16 @@ public class MelonClientDeveloperOptionsScreen extends MelonScreen {
     @Override
     public void init() {
         super.init();
-
+        this.addRenderableWidget(Button.builder(Component.literal("Advanced Logging: On"), button -> Client.setScreen(new WelcomeScreen())).bounds(this.width / 2 - 100, this.height / 4 + 50, 200, 20).build());
+        this.addRenderableWidget(Button.builder(Component.literal("Advanced Logging: On"), button -> Client.setScreen(new ConfirmLinkScreen(result -> {
+            if (result) Util.getPlatform().openUri(Client.websiteUrl);
+            Client.setScreen(new MelonClientHelpAboutScreen(parent));
+        }, Client.websiteUrl, true))).bounds(this.width / 2 + 2, this.height / 4 + 75, 98, 20).build());
+        this.addRenderableWidget(Button.builder(Component.literal("Use Dev Api: On"),  button -> Client.setScreen(new ConfirmLinkScreen(result -> {
+            if (result) Util.getPlatform().openUri(Client.discordUrl);
+            Client.setScreen(new MelonClientHelpAboutScreen(parent));
+        }, Client.discordUrl, true))).bounds(this.width / 2 - 100, this.height / 4 + 75, 98, 20).build());
+        this.addRenderableWidget(Button.builder(Component.literal("Developer Options"), button -> Client.setScreen(new MelonClientDeveloperOptionsScreen(this))).bounds(this.width / 2 - 100, this.height / 4 + 100, 200, 20).build());
     }
 
     @Override

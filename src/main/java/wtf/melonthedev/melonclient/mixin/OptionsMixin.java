@@ -23,14 +23,14 @@ public abstract class OptionsMixin {
      */
     @Overwrite
     public OptionInstance<Double> gamma() {
-        return new OptionInstance<Double>("options.gamma", OptionInstance.noTooltip(), (p_231913_, p_231914_) -> {
-            int i = (int) (p_231914_ * 100.0D);
+        return new OptionInstance<Double>("options.gamma", OptionInstance.noTooltip(), (component, value) -> {
+            int i = (int) (value * 100.0D);
             if (i == 0) {
-                return gvl(p_231913_, Component.translatable("options.gamma.min"));
+                return gvl(component, Component.translatable("options.gamma.min"));
             } else if (i == 500) {
-                return gvl(p_231913_, Component.translatable("options.gamma.default"));
+                return gvl(component, Component.translatable("options.gamma.default"));
             } else {
-                return i == 1000 ? gvl(p_231913_, Component.translatable("options.gamma.max")) : gvl(p_231913_, i);
+                return i == 1000 ? gvl(component, Component.translatable("options.gamma.max")) : gvl(component, i);
             }
         }, OptionInstance.UnitDouble.INSTANCE, 0.5D, (p_231877_) -> {
         });

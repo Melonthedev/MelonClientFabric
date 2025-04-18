@@ -25,6 +25,11 @@ public abstract class MinecraftMixin {
 
     @Shadow public abstract @Nullable ServerData getCurrentServer();
 
+    /**
+     *
+     * @author Melonthedev
+     * @reason MelonClient Window Title
+     */
     @Redirect(method = "updateTitle", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;createTitle()Ljava/lang/String;"))
     public String createTitle(Minecraft instance) {
         final Window window = Minecraft.getInstance().getWindow();
@@ -48,6 +53,9 @@ public abstract class MinecraftMixin {
         return stringbuilder.toString();
     }
 
+    /**
+     * @reason Show Welcome Screen on first MelonClient Start
+     */
     @Redirect(method ="<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
     public void setScreen(Minecraft instance, net.minecraft.client.gui.screens.Screen screen) {
         Client.openStartScreen();

@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import wtf.melonthedev.melonclient.Client;
+import wtf.melonthedev.melonclient.gui.screens.WelcomeScreen;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
 
 public class MelonClientHelpAboutScreen extends MelonScreen {
@@ -22,7 +23,7 @@ public class MelonClientHelpAboutScreen extends MelonScreen {
     public void init()
     {
         super.init();
-        this.addRenderableWidget(Button.builder(Component.literal("Getting Started"), button -> Util.getPlatform().openUri(Client.gettingStartedUrl)).bounds(this.width / 2 - 100, this.height / 4 + 50, 200, 20).build());
+        this.addRenderableWidget(Button.builder(Component.literal("Getting Started"), button -> Client.setScreen(new WelcomeScreen())).bounds(this.width / 2 - 100, this.height / 4 + 50, 200, 20).build());
         this.addRenderableWidget(Button.builder(Component.literal("Website"), button -> Client.setScreen(new ConfirmLinkScreen(result -> {
             if (result) Util.getPlatform().openUri(Client.websiteUrl);
             Client.setScreen(new MelonClientHelpAboutScreen(parent));

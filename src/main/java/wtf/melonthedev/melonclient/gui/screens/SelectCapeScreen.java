@@ -125,7 +125,7 @@ public class SelectCapeScreen extends MelonScreen {
     float playerPitch = 1.0F;
     private void renderCapeImages(GuiGraphics guiGraphics) {
         playerPitch++;
-        if (minecraft.player != null) MelonClientWrapper.renderEntityInInventory(width/2, height/3 + 100, 60, playerPitch, 1.0f, this.minecraft.player, true);
+        //if (minecraft.player != null) MelonClientWrapper.renderEntityInInventory(width/2, height/3 + 100, 60, playerPitch, 1.0f, this.minecraft.player, true);
 
 
         int c = -3;

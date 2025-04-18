@@ -16,7 +16,7 @@ public class ClientLevelMixin {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void ClientLevel(CallbackInfo ci) {
-        Client.getInstance().startIngame();
+        Client.getInstance().startIngame(true);
     }
 
 

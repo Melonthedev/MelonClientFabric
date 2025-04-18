@@ -1,5 +1,6 @@
 package wtf.melonthedev.melonclient.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -63,24 +64,28 @@ public abstract class TitleScreenMixin extends Screen {
             s.append("release".equalsIgnoreCase(this.minecraft.getVersionType()) ? "" : "/" + this.minecraft.getVersionType());
         }
         instance.drawString(font, s.toString(), i, j, k);
-        return 1; // ???
+        return 1;
     }
 
+    /**
+     * @reason Render Logo
+     */
     @Inject(method = "render", at = @At(value = "TAIL"))
-    public void drawMelonClientLogo(GuiGraphics guiGraphics, int i, int j, float f, CallbackInfo ci) {
-        MelonClientWrapper.renderMainScreenLogo(guiGraphics);
+    public void drawMelonClientLogo(GuiGraphics guiGraphics, int i, int j, float f, CallbackInfo ci, @Local(name = "g") float alphaFade) {
+        MelonClientWrapper.renderMainScreenLogo(guiGraphics, alphaFade);
     }
 
     /**
      * @author Melonthedev
      * @reason Edit Main Buttons & Add Quit Game Confirmation Dialog
+     * Removes unnecessary Accessibility & Language Buttons, which can be accessed from options menu
      */
     @Redirect(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;"))
     public GuiEventListener addRenderableWidgetRedirect(TitleScreen instance, GuiEventListener widget) {
         if (!(widget instanceof Button button)) return this.addRenderableWidget((GuiEventListener & Renderable & NarratableEntry) widget);
         System.out.println(button.getMessage());
-        if (button.getMessage().equals(Component.translatable("narrator.button.language"))
-                || button.getMessage().equals(Component.translatable("narrator.button.accessibility"))) return widget;
+        if (button.getMessage().equals(Component.translatable("options.language"))
+                || button.getMessage().equals(Component.translatable("options.accessibility"))) return widget;
         if (button.getMessage().equals(Component.translatable("menu.quit"))) {
             return this.addRenderableWidget(Button.builder(Component.translatable("menu.quit"), (p_96786_) -> Client.setScreen(new ConfirmScreen((flag) -> {
                 if (flag) minecraft.stop();
@@ -104,12 +109,12 @@ public abstract class TitleScreenMixin extends Screen {
 
     /**
      * @author Melonthedev
-     * @reason Stop Realm Symbol on MelonClient Button
+     * @reason Stop Realm Symbol on MelonClient Button THROWS EXCEPTION CAUSES mc to be null somewhere
      */
-    @Overwrite
-    private boolean realmsNotificationsEnabled() {
-        return false;
-    }
+    //@Overwrite
+    //private boolean realmsNotificationsEnabled() {
+    //    return false;
+    //}
 
     /**
      * @author Melonthedev

@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.gui.GuiUtils;
+import wtf.melonthedev.melonclient.utils.ClientUtils;
 import wtf.melonthedev.melonclient.utils.RenderUtil;
 
 public class MelonScreen extends Screen {
@@ -100,7 +101,7 @@ public class MelonScreen extends Screen {
     @Override
     public void onClose() {
         Client.getInstance().removeScreen(this);
-        super.onClose();
+        //super.onClose(); - No Parent screen shown when called
     }
 
     //Player Rendering
@@ -149,8 +150,9 @@ public class MelonScreen extends Screen {
         if (actualRotation < rotationSyncedLastTick && syncPlayerRotation) actualRotation = rotationSyncedLastTick;
         else if (actualRotation < rotationLastTick && !syncPlayerRotation) actualRotation = rotationLastTick;
 
-        if (world != null && player != null)
-            MelonClientWrapper.renderEntityInInventory(x, y, scale, actualRotation, 180, player, true);
+        //if (world != null && player != null)
+            //GuiUtils.renderPlayerInInventory(gu);
+            //MelonClientWrapper.renderEntityInInventory(x, y, scale, actualRotation, 180, player, true);
 
         if (nullplayer) {
             //mc.player = null;
@@ -162,17 +164,20 @@ public class MelonScreen extends Screen {
         guiGraphics.drawString(mc.font, player.getName(), x, y, 0xFFFFFF);
     }
 
+    @Override
+    public boolean keyPressed(int i, int j, int k) {
+        if (i == 256) {
+            Client.setScreen(parent);
+            ClientUtils.logDev("Switch to parent screen");
+            onClose();
+            return true;
+        }
+        return super.keyPressed(i, j, k);
+    }
 
     //Draw Header
     public void drawMelonClientLogoHeader(GuiGraphics guiGraphics, int x, int y) {
-        /*RenderSystem.setShaderTexture(0, ResourceLocation.parse("textures/gui/title/icon.png"));
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.enableBlend();
-        blit(stack, x - 128, y, 0, 0, 128, 64, 128, 128);
-        blit(stack, x, y, 0, 64, 128, 64, 128, 128);
-        stack.popPose();*/
-        RenderUtil.drawMelonClientLogo(guiGraphics, x, y);
-
+        RenderUtil.drawMelonClientLogo(guiGraphics, x - 128, y, 256, 64);
         guiGraphics.drawString(font, "By Melonthedev                " + Client.getInstance().BASEVVERSION, width / 2 - 62, y + 55, 0xFFFFFF);
     }
 }

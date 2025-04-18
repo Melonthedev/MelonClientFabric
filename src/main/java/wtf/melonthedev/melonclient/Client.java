@@ -89,10 +89,10 @@ public class Client {
         else setScreen(new TitleScreen(true));
     }
 
-    public void startIngame() {
-        if (isDevModeEnabled()) Client.getInstance().getLOGGER().debug("IngameMode Started");
+    public void startIngame(boolean resetDiscordTimer) {
+        if (isDevModeEnabled()) ClientUtils.logDev("IngameMode Started");
         if (mc.hasSingleplayerServer())
-            getDiscordRP().updateSingleplayer(true);
+            getDiscordRP().updateSingleplayer(resetDiscordTimer);
         else if (mc.getCurrentServer() != null)
             DisplayedServer.displayServer(mc.getCurrentServer().ip);
     }

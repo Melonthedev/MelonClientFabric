@@ -9,14 +9,13 @@ import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import wtf.melonthedev.melonclient.Client;
+import wtf.melonthedev.melonclient.gui.GuiUtils;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonClientWrapper;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
 
 public class SkinCapeChangeScreen extends MelonScreen {
 
     private final Screen parent;
-    //private LocalPlayer localPlayer;
-    //private PlayerRenderer playerRenderer;
 
     public SkinCapeChangeScreen(Screen parent) {
         super(Component.literal("Skin and Cape"), true);
@@ -26,15 +25,11 @@ public class SkinCapeChangeScreen extends MelonScreen {
     @Override
     public void init()
     {
-        //
-        // localPlayer = new LocalPlayer(minecraft, minecraft.level, minecraft.player.connection, minecraft.player.getStats(), minecraft.player.getRecipeBook(), false, false);
         this.addRenderableWidget(Button.builder(Component.literal("Done"), (p_96321_) -> Client.setScreen(parent)).bounds(this.width - this.width / 8 - 40, this.height / 4 + 132, 80, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("Select Cape"), (p_96321_) -> Client.setScreen(new SelectCapeScreen())).bounds(width / 2 - 100, height / 4 + 50, 200, 20).build());
         this.addRenderableWidget(Button.builder(Component.literal("Select Skin"), (p_96321_) -> System.out.println("Not implemented")).bounds(width / 2 - 100, height / 4 + 75, 200, 20).build());
         this.addRenderableWidget(Button.builder(Component.literal("Select Cosmetics"), (p_96321_) -> System.out.println("Not implemented")).bounds(width / 2 - 100, height / 4 + 100, 200, 20).build());
-        //if (Client.entityRendererContext != null)
-            //this.playerRenderer = new PlayerRenderer(Client.entityRendererContext, false);
     }
 
     @Override
@@ -47,18 +42,8 @@ public class SkinCapeChangeScreen extends MelonScreen {
         drawPlayer(guiGraphics);
     }
 
-    int rotate;
     public void drawPlayer(GuiGraphics guiGraphics) {
-        //ScreenDebug.drawEntityOnScreen(this.width - this.width / 8, this.height / 4 + 130, 60, rotate, 180, player);
-        //if (localPlayer == null) return;
-        //localPlayer.getInventory().clearContent();
-        //MelonClientWrapper.renderEntityInInventory(width - width/8, height/3 + 100, 60, rotate, 1.0f, localPlayer, true);
-        //playerRenderer.setModelProperties(localPlayer);
-        //playerRenderer.render(localPlayer, 1.0F, 1.0F, stack, MultiBufferSource.immediate(new BufferBuilder(0)), 1);
-        rotate+=2;
-        if(rotate<= -720 || rotate >= 720) {
-            rotate = 0;
-        }
+        GuiUtils.renderRotatingPlayerInInventory(guiGraphics, this.width - this.width / 8, this.height / 4 + 65, 50);
     }
 
     @Override

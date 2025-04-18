@@ -52,7 +52,7 @@ public abstract class MouseHandlerMixin {
      * @reason MelonClient Zoom
      */
     @Overwrite
-    public void turnPlayer(double d) {
+    private void turnPlayer(double d) {
         double d0 = Blaze3D.getTime();
         double d1 = d0 - this.lastHandleMovementTime;
         this.lastHandleMovementTime = d0;

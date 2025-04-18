@@ -1,13 +1,43 @@
 package wtf.melonthedev.melonclient.gui;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.CommonListenerCookie;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.worldgen.DimensionTypes;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.ServerLinks;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
+import net.minecraft.world.level.dimension.DimensionDefaults;
+import net.minecraft.world.level.dimension.DimensionType;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import wtf.melonthedev.melonclient.Client;
+import wtf.melonthedev.melonclient.melonclientwrapper.MelonClientWrapper;
+import wtf.melonthedev.melonclient.utils.dummyplayer.DummyClientLevel;
+import wtf.melonthedev.melonclient.utils.dummyplayer.DummyPlayer;
+
+import java.util.HashMap;
 
 public class GuiUtils {
 
@@ -26,16 +56,70 @@ public class GuiUtils {
         guiGraphics.vLine(x + width, y, y + height, color);
     }
 
-
     public static void drawTexture(GuiGraphics guiGraphics, int posX, int posY, int width, int height, ResourceLocation texture) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0f);
         guiGraphics.blit(texture, posX, posY, width, height, 128, 64);
     }
 
-    public static void drawTexture(GuiGraphics guiGraphics, int xPos, int yPos, int blitOffset, float textureX, float textureY, int imgSizeX, int imgSizeY, int scaleX, int scaleY, ResourceLocation texture) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0f);
-        guiGraphics.blit(texture, xPos, yPos, blitOffset, (int)textureX, (int)textureY, imgSizeX, imgSizeY, scaleX, scaleY);
+    public static void renderRotatingPlayerInInventory(GuiGraphics guiGraphics, int x, int y, int scale) {
+        int rotation = (int) ((Util.getMillis() % 10000L) / 10000.0f * 180);
+        renderPlayerInInventory(guiGraphics, x, y, scale, rotation);
     }
 
+    public static void renderPlayerInInventory(GuiGraphics guiGraphics, int x, int y, int scale, int rotation) {
+        LivingEntity entity;
+        if (mc.player != null) {
+            entity = mc.player;
+        } else {
+            entity = new DummyPlayer(null, new GameProfile(mc.getUser().getProfileId(), "COCK"));
+        }
+        renderEntityInInventory(guiGraphics, x, y, scale, rotation, entity);
+    }
+
+    public static void renderEntityInInventory(GuiGraphics guiGraphics, float x, float y, float scale, float rotationDegrees, LivingEntity entity) {
+        Quaternionf bodyRotation = new Quaternionf().rotateZ((float) Math.PI);
+
+        float originalBodyRot = entity.yBodyRot;
+        float originalYRot = entity.getYRot();
+        float originalXRot = entity.getXRot();
+        float originalHeadRotO = entity.yHeadRotO;
+        float originalHeadRot = entity.yHeadRot;
+
+        entity.yBodyRot = 180.0f + rotationDegrees * 2;
+        entity.setYRot(180.0f + rotationDegrees * 2);
+        entity.setXRot(-10f);
+        entity.yHeadRot = entity.getYRot();
+        entity.yHeadRotO = entity.getYRot();
+
+        float entityScale = entity.getScale();
+        Vector3f translation = new Vector3f(0.0f, entity.getBbHeight() / 2.0f + 0.0625f * entityScale, 0.0f);
+        float scaled = scale / entityScale;
+
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(x, y, 50.0);
+        guiGraphics.pose().scale(scaled, scaled, -scaled);
+        guiGraphics.pose().translate(translation.x, translation.y, translation.z);
+        guiGraphics.pose().mulPose(bodyRotation);
+
+        Lighting.setupForEntityInInventory();
+        EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+        dispatcher.overrideCameraOrientation(new Quaternionf().rotateY((float) Math.PI));
+        dispatcher.setRenderShadow(false);
+
+        RenderSystem.runAsFancy(() -> {
+            dispatcher.render(entity, 0.0, 0.0, 0.0, 0.0f, 1.0f, guiGraphics.pose(), guiGraphics.bufferSource(), 15728880);
+        });
+
+        guiGraphics.flush();
+        dispatcher.setRenderShadow(true);
+        guiGraphics.pose().popPose();
+        Lighting.setupFor3DItems();
+
+        entity.yBodyRot = originalBodyRot;
+        entity.setYRot(originalYRot);
+        entity.setXRot(originalXRot);
+        entity.yHeadRotO = originalHeadRotO;
+        entity.yHeadRot = originalHeadRot;
+    }
 
 }
