@@ -187,7 +187,9 @@ public class HudEditScreen extends MelonScreen {
             return;
         selectedMultiple = false;
         selectedRenderers.clear();
-        selectedRenderers.addAll(rendererPositions.keySet().stream().filter(new MouseOverFinder(x, y)).collect(Collectors.toList()));
+        List<IRenderer> renderablesUnderMouse = rendererPositions.keySet().stream().filter(new MouseOverFinder(x, y)).toList();
+        if (renderablesUnderMouse.isEmpty()) return;
+        selectedRenderers.add(renderablesUnderMouse.getFirst());
     }
 
     private boolean isOverMod(int x, int y) {
