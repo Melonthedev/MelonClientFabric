@@ -110,12 +110,12 @@ public abstract class ModuleDraggable extends Module implements IRenderer {
     }
 
     public void drawStandardText(GuiGraphics guiGraphics, ScreenPosition pos, String text) {
-        guiGraphics.drawCenteredString(mc.font, text, pos.getAbsoluteX() + 1, pos.getAbsoluteY() + 1, options.color.getColor() != null ? options.color.getColor() : 0xFF00FFFF);
+        guiGraphics.drawString(mc.font, text, pos.getAbsoluteX() + 1, pos.getAbsoluteY() + 1, options.color.getColor() != null ? options.color.getColor() : 0xFF00FFFF);
         //mc.font.draw(stack, text, pos.getAbsoluteX() + 1, pos.getAbsoluteY() + 1, options.color.getColor() != null ? options.color.getColor() : 0xFF00FFFF);
     }
 
     public void drawStandardText(GuiGraphics guiGraphics, String text, int x, int y) {
-        guiGraphics.drawCenteredString(mc.font, text, x + 1, y + 1, options.color.getColor() != null ? options.color.getColor() : 0xFF00FFFF);
+        guiGraphics.drawString(mc.font, text, x + 1, y + 1, options.color.getColor() != null ? options.color.getColor() : 0xFF00FFFF);
         //mc.font.draw(stack, text, x, y, options.color.getColor() != null ? options.color.getColor() : 0xFF00FFFF);
     }
 

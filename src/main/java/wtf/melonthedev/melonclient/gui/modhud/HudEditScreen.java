@@ -111,19 +111,19 @@ public class HudEditScreen extends MelonScreen {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
-        /*final int blitOffsetOld = this.getBlitOffset();
+        //final int blitOffsetOld = this.getBlitOffset();
         if (isModSearcherOpen) {
             //list.render(stack, mouseX, mouseY, partialTicks);
             //modSearchBox.render(stack, mouseX, mouseY, partialTicks);
         }
-        setBlitOffset(200);
-        super.render(stack, mouseX, mouseY, partialTicks);
-        setBlitOffset(300);
-        renderDummies(stack);
-        drawHollowRect(stack, 0, 0, this.width - 1, this.height - 1, 0xFF00FFFF);
-        drawSelectedModsIndicator(stack);
-        if (shouldDrawSelection) drawSelectionField(stack);
-        setBlitOffset(blitOffsetOld);*/
+        //setBlitOffset(200);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        //setBlitOffset(300);
+        renderDummies(guiGraphics);
+        drawHollowRect(guiGraphics, 0, 0, this.width - 1, this.height - 1, 0xFF00FFFF);
+        drawSelectedModsIndicator(guiGraphics);
+        if (shouldDrawSelection) drawSelectionField(guiGraphics);
+        //setBlitOffset(blitOffsetOld);
     }
 
     public void renderDummies(GuiGraphics guiGraphics) {
@@ -176,6 +176,7 @@ public class HudEditScreen extends MelonScreen {
     private void drawSelectedModsIndicator(GuiGraphics guiGraphics) {
         for (IRenderer renderer : selectedRenderers) {
             ScreenPosition pos = rendererPositions.get(renderer);
+            System.out.println(pos.getAbsoluteX() + " " + pos.getAbsoluteY());
             this.drawHollowRect(guiGraphics, pos.getAbsoluteX() - 2, pos.getAbsoluteY() - 2, renderer.getWidth() + 4, renderer.getHeight() + 3, Color.CYAN.getRGB());
         }
     }
