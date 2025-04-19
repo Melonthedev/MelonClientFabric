@@ -3,10 +3,10 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 import wtf.melonthedev.melonclient.settings.ClientSettings;
 
-public class ModPerspective extends ModuleDraggable {
+public class ModPerspective extends ModDraggable {
 
     private boolean returnOnRelease = true;
     public boolean isToggled = false;
@@ -66,6 +66,7 @@ public class ModPerspective extends ModuleDraggable {
     }
 
     public ModPerspective() {
+        super("Free Perspective", "freeperspective");
         title = "Free Perspective: ";
         updateDummy();
     }

@@ -3,10 +3,11 @@ package wtf.melonthedev.melonclient.modengine.mods.vanilla;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonClientWrapper;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModBossbar extends ModuleDraggable {
+public class ModBossbar extends ModDraggable {
     public ModBossbar() {
+        super("Bossbar", "vanilla-bossbar");
         title = "";
         updateDummy();
     }

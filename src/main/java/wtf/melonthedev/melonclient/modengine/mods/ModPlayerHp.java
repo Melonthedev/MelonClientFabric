@@ -2,13 +2,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModPlayerHp extends ModuleDraggable {
+public class ModPlayerHp extends ModDraggable {
 
     public ModPlayerHp() {
+        super("Player Health", "playerhp");
         title = "Player HP: ";
-        name = "Playerhp";
         updateDummy();
     }
 

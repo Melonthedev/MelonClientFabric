@@ -1,14 +1,15 @@
 package wtf.melonthedev.melonclient.modengine.mods;
 
 import net.minecraft.client.gui.GuiGraphics;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggableOptions;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModServerIp extends ModuleDraggable {
+public class ModServerIp extends ModDraggable {
 
     public ModServerIp() {
+        super("Server IP", "serverip");
         title = "Server IP: ";
-        name = "Serverip";
         updateDummy();
     }
 

@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modengine;
+package wtf.melonthedev.melonclient.gui.modengine;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -7,15 +7,15 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
 public class ColorSelectorScreen extends MelonScreen {
 
     private Screen parent;
     private String title;
-    private ModuleDraggable[] mods;
+    private ModDraggable[] mods;
 
-    protected ColorSelectorScreen(Screen parent, ModuleDraggable... mods) {
+    protected ColorSelectorScreen(Screen parent, ModDraggable... mods) {
         super(Component.literal("Choose a color"), true);
         this.parent = parent;
         this.mods = mods;
@@ -80,7 +80,7 @@ public class ColorSelectorScreen extends MelonScreen {
     }
 
     private void handleClick(ChatFormatting color) {
-        for (ModuleDraggable mod : mods)
+        for (ModDraggable mod : mods)
             mod.getOptions().color = color;
         Client.setScreen(parent);
     }

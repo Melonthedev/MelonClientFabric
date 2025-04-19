@@ -2,13 +2,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModKeyStrokes extends ModuleDraggable {
+public class ModKeyStrokes extends ModDraggable {
 
     public ModKeyStrokes() {
+        super("Keystrokes", "keystrokes");
         title = "KeyStrokes: ";
-        name = "Keystrokes";
         updateDummy();
     }
 

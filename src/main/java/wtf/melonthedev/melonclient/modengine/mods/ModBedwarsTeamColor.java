@@ -3,13 +3,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModBedwarsTeamColor extends ModuleDraggable {
+public class ModBedwarsTeamColor extends ModDraggable {
 
     public ModBedwarsTeamColor() {
+        super("Bedwars Team Color", "bedwarsteam");
         title = "Team: ";
-        name = "Bedwarsteam";
         updateDummy();
     }
 

@@ -2,13 +2,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModItemCount extends ModuleDraggable {
+public class ModItemCount extends ModDraggable {
 
     public ModItemCount() {
+        super("Itemcounter", "itemcount");
         title = "Item Count: ";
-        name = "Itemcount";
         updateDummy();
     }
 

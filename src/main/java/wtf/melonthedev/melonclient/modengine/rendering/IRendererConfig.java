@@ -1,9 +1,9 @@
 package wtf.melonthedev.melonclient.modengine.rendering;
 
-import wtf.melonthedev.melonclient.modengine.ModOptions;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggableOptions;
 
 public interface IRendererConfig {
-    void save(ModOptions options);
+    void save(ModDraggableOptions options);
 
-    ModOptions load();
+    ModDraggableOptions load();
 }

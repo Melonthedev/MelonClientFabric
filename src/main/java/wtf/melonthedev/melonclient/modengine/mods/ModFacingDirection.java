@@ -4,13 +4,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.modengine.ModFlag;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModFacingDirection extends ModuleDraggable {
+public class ModFacingDirection extends ModDraggable {
 
     public ModFacingDirection() {
+        super("Facing Direction", "facingdirection");
         title = "Facing Direction: ";
-        name = "Facingdirection";
         updateDummy();
     }
 

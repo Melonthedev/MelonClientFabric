@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modengine;
+package wtf.melonthedev.melonclient.gui.modengine;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

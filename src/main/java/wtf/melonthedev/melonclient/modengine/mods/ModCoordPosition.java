@@ -3,13 +3,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.modengine.ModFlag;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModCoordPosition extends ModuleDraggable {
+public class ModCoordPosition extends ModDraggable {
 
     public ModCoordPosition() {
+        super("Coordinates", "coords");
         title = "Coords: ";
-        name = "Coords";
         updateDummy();
     }
 

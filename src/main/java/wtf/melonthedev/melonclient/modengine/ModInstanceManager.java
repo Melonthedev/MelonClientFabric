@@ -1,6 +1,7 @@
 package wtf.melonthedev.melonclient.modengine;
 
 import wtf.melonthedev.melonclient.Client;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 import wtf.melonthedev.melonclient.modengine.rendering.HudManager;
 import wtf.melonthedev.melonclient.modengine.mods.*;
 import wtf.melonthedev.melonclient.modengine.mods.vanilla.ModBossbar;
@@ -47,12 +48,10 @@ public class ModInstanceManager {
             ClientUtils.setModDefaults();
         }
         //modPerspective = new ModPerspective();
-        //api.register(modHelloWorld, modCps, modClock, modDate, modPing, modServerIp, modBedwarsTeamColor, modCoordPosition, modFps, modArmorstatus, modPotionStatus, modFacingDirection, modPerspective);
         hudManager.register(modCps, modClock, modDate, modPing, modServerIp, modCoordPosition, modFps, modArmorstatus, modPotionStatus, modFacingDirection, modPerspective, modBossbar);
     }
 
-    public static ModuleDraggable[] getMods() {
-        //return new ModuleDraggable[] {modPing, modHelloWorld, modClock, modCps, modDate, modServerIp, modBedwarsTeamColor, modCoordPosition, modFps, modArmorstatus, modPotionStatus, modFacingDirection, modPerspective};
-        return new ModuleDraggable[] {modPing, modClock, modCps, modDate, modServerIp, modCoordPosition, modFps, modArmorstatus, modPotionStatus, modFacingDirection, modPerspective, modBossbar};
+    public static ModDraggable[] getMods() {
+        return new ModDraggable[] {modPing, modClock, modCps, modDate, modServerIp, modCoordPosition, modFps, modArmorstatus, modPotionStatus, modFacingDirection, modPerspective, modBossbar};
     }
 }

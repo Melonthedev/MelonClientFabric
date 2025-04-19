@@ -3,13 +3,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonClientWrapper;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModFps extends ModuleDraggable {
+public class ModFps extends ModDraggable {
 
     public ModFps() {
+        super("Framerate", "fps");
         title = "FPS: ";
-        name = "Fps";
         updateDummy();
     }
 

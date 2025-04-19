@@ -3,12 +3,12 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.modengine.ModFlag;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModCps extends ModuleDraggable {
+public class ModCps extends ModDraggable {
 
     private final List<Long> clicksRight = new ArrayList<>();
     private final List<Long> clicksLeft = new ArrayList<>();
@@ -18,8 +18,8 @@ public class ModCps extends ModuleDraggable {
     private long lastPressedLeft;
 
     public ModCps() {
+        super("Clicks per Second" ,"cps");
         title = "CPS: ";
-        name = "Cps";
         updateDummy();
     }
 

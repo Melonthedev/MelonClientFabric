@@ -5,15 +5,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.modengine.ModFlag;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
 import java.util.List;
 
-public class ModArmorstatus extends ModuleDraggable {
+public class ModArmorstatus extends ModDraggable {
 
     public ModArmorstatus() {
+        super("Armor Status", "armorstatus");
         title = "Armorstatus: ";
-        name = "Armorstatus";
         updateDummy();
     }
 

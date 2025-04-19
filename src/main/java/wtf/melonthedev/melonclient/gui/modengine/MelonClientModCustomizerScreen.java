@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modengine;
+package wtf.melonthedev.melonclient.gui.modengine;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,16 +9,16 @@ import net.minecraft.network.chat.Component;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
 import wtf.melonthedev.melonclient.modengine.ModFlag;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
 public class MelonClientModCustomizerScreen extends MelonScreen {
 
     private final Screen parent;
     public String title;
-    private ModuleDraggable[] renderers;
+    private ModDraggable[] renderers;
     private String warning = "";
 
-    public MelonClientModCustomizerScreen(Screen parent, ModuleDraggable... renderers) {
+    public MelonClientModCustomizerScreen(Screen parent, ModDraggable... renderers) {
         super(Component.literal("Mod Options"), true);
         this.parent = parent;
         this.renderers = renderers;
@@ -31,7 +31,7 @@ public class MelonClientModCustomizerScreen extends MelonScreen {
         this.title = "Mod Options";
         this.addRenderableWidget(Button.builder(Component.literal("Click to " + (renderers[0].isEnabled() ? "Disable" : "Enable")), (btn) -> {
             boolean isEnabled = renderers[0].isEnabled();
-            for (ModuleDraggable renderer : renderers)
+            for (ModDraggable renderer : renderers)
                 renderer.setEnabled(!isEnabled);
             btn.setMessage(Component.literal("Click to " + (renderers[0].isEnabled() ? "Disable" : "Enable")));
         }).bounds(width / 2 - 155, height / 5 - 6, 150, 20).build());
@@ -39,7 +39,7 @@ public class MelonClientModCustomizerScreen extends MelonScreen {
             @Override
             protected void updateMessage() {
                 this.setMessage(Component.literal("Scale: " + (double) Math.round((value / 100 * 100) * 10) / 10));
-                for (ModuleDraggable renderer : renderers)  renderer.getOptions().scale = (float) Math.round((value / 100 * 100) * 10) / 10;
+                for (ModDraggable renderer : renderers)  renderer.getOptions().scale = (float) Math.round((value / 100 * 100) * 10) / 10;
             }
             @Override
             protected void applyValue() {
@@ -54,7 +54,7 @@ public class MelonClientModCustomizerScreen extends MelonScreen {
             Client.setScreen(new BackgroundSelectorScreen(this, renderers));
         }).bounds(width / 2 - 155, height / 5 + 72 - 6, 150, 20).build());
         this.addRenderableWidget(Button.builder(Component.literal("Show name of mod: " + (renderers[0].getOptions().showModName ? "True" : "False")), (btn) -> {
-            for (ModuleDraggable renderer : renderers)  renderer.getOptions().showModName = !renderers[0].getOptions().showModName;
+            for (ModDraggable renderer : renderers)  renderer.getOptions().showModName = !renderers[0].getOptions().showModName;
             btn.setMessage(Component.literal("Show name of mod: " + (renderers[0].getOptions().showModName ? "True" : "False")));
         }).bounds(width / 2 - 155, height / 5 + 96 - 6, 150, 20).build());
         if (renderers.length == 1) {
@@ -75,9 +75,14 @@ public class MelonClientModCustomizerScreen extends MelonScreen {
             }
         } else warning = "Too many mods selected";
         this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), (btn) -> {
-            for (ModuleDraggable renderer : renderers)  renderer.updateDummy();
+            for (ModDraggable renderer : renderers)  renderer.updateDummy();
             Client.setScreen(parent);
         }).bounds(width / 2 - 100, height / 5 + 168, 200, 20).build());
+    }
+
+    @Override
+    public void onClose() {
+        Client.setScreen(parent);
     }
 
     /*** Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks*/
@@ -86,7 +91,7 @@ public class MelonClientModCustomizerScreen extends MelonScreen {
     {
         if (parent instanceof HudEditScreen) {
             ((HudEditScreen) parent).renderDummies(guiGraphics);
-            for (ModuleDraggable renderer : renderers) ((HudEditScreen) parent).renderSelectedForRenderer(guiGraphics, renderer);
+            for (ModDraggable renderer : renderers) ((HudEditScreen) parent).renderSelectedForRenderer(guiGraphics, renderer);
         }
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);

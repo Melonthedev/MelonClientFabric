@@ -2,18 +2,18 @@ package wtf.melonthedev.melonclient.modengine.mods;
 
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModPotionStatus extends ModuleDraggable {
+public class ModPotionStatus extends ModDraggable {
 
     int heightMultiplier = 1;
 
     public ModPotionStatus() {
+        super("Potion Status", "potstatus");
         title = "Potions:";
-        name = "Potstatus";
         updateDummy();
     }
 

@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modengine;
+package wtf.melonthedev.melonclient.gui.modengine;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -9,7 +9,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.modengine.ModInstanceManager;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
+import wtf.melonthedev.melonclient.utils.ClientUtils;
 
 import java.time.Duration;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
 
     private static final Duration MAX_LOAD_BLOCK_TIME = Duration.ofMillis(100L);
     private final HudEditScreen screen;
-    private CompletableFuture<List<ModuleDraggable>> modsFuture;
+    private CompletableFuture<List<ModDraggable>> modsFuture;
 
     public ModSelectionList(HudEditScreen screen, int width, int height, int x, int y0, int y1, Supplier<String> searchQuery, ModSelectionList modSelectionList) {
         super(Minecraft.getInstance(), width, height, y0, y1);
@@ -38,7 +39,7 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
 
     public void reloadMods(Supplier<String> searchQuery) {
         this.modsFuture = this.loadMods();
-        List<ModuleDraggable> list = this.pollReadyMods(this.modsFuture, MAX_LOAD_BLOCK_TIME);
+        List<ModDraggable> list = this.pollReadyMods(this.modsFuture, MAX_LOAD_BLOCK_TIME);
         if (list != null) {
             this.fillMods(searchQuery.get(), list);
             return;
@@ -46,7 +47,7 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
         this.modsFuture.thenAcceptAsync((mods) -> this.fillMods(searchQuery.get(), mods), this.minecraft);
     }
 
-    private CompletableFuture<List<ModuleDraggable>> loadMods() {
+    private CompletableFuture<List<ModDraggable>> loadMods() {
         return CompletableFuture.completedFuture(List.of(ModInstanceManager.getMods()));
     }
 
@@ -56,7 +57,7 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
             this.clearEntries();
             return;
         }
-        List<ModuleDraggable> list = this.pollReadyMods(this.modsFuture, Duration.ZERO);
+        List<ModDraggable> list = this.pollReadyMods(this.modsFuture, Duration.ZERO);
         if (list != null) this.fillMods(searchQuery, list);
         else this.fillLoadingMods();
         if (!searchQuery.equalsIgnoreCase(oldSearchQuery)) {
@@ -65,24 +66,24 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
         }
     }
 
-    private List<ModuleDraggable> pollReadyMods(CompletableFuture<List<ModuleDraggable>> mods, Duration duration) {
-        List<ModuleDraggable> list = null;
+    private List<ModDraggable> pollReadyMods(CompletableFuture<List<ModDraggable>> mods, Duration duration) {
+        List<ModDraggable> list = null;
         try {
             list = mods.get(duration.toMillis(), TimeUnit.MILLISECONDS);
         } catch (ExecutionException | TimeoutException | InterruptedException ignored) {}
         return list;
     }
 
-    private void fillMods(String searchQuery, List<ModuleDraggable> mods) {
+    private void fillMods(String searchQuery, List<ModDraggable> mods) {
         this.clearEntries();
-        for(ModuleDraggable mod : mods) {
+        for(ModDraggable mod : mods) {
             if (this.filterAccepts(searchQuery.toLowerCase(Locale.ROOT), mod))
                 this.addEntry(new ModListEntry(this, mod));
         }
         this.notifyListUpdated();
     }
 
-    private boolean filterAccepts(String query, ModuleDraggable moduleDraggable) {
+    private boolean filterAccepts(String query, ModDraggable moduleDraggable) {
         return moduleDraggable.getName().toLowerCase(Locale.ROOT).contains(query);
     }
 
@@ -96,11 +97,13 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
     }
 
     protected int getScrollbarPosition() {
-        return getScreen().width / 2 + 100;
+        //return getScreen().width / 2 + 100;
+        return getScreen().width / 2 + width/2 - 6;
     }
 
     public int getRowWidth() {
-        return super.getRowWidth() - 20;
+        //return super.getRowWidth() - 12;
+        return super.getRowWidth();
     }
 
     public boolean isFocused() {
@@ -134,28 +137,32 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
 
         private final Minecraft minecraft;
         private final HudEditScreen screen;
-        private final ModuleDraggable mod;
+        private final ModDraggable mod;
         private final ResourceLocation iconLocation;
         public Button toggleButton;
         public Button editButton;
 
-        public ModListEntry(ModSelectionList list, ModuleDraggable mod) {
+        public ModListEntry(ModSelectionList list, ModDraggable mod) {
             this.minecraft = list.minecraft;
             this.screen = list.getScreen();
             this.mod = mod;
-            String title = mod.getName();
-            this.iconLocation = ResourceLocation.fromNamespaceAndPath("melonclient", "modicons/" + title.toLowerCase() + ".png");
+            this.iconLocation = mod.getIcon();
             this.toggleButton = Button.builder(getAddRemoveButtonComponent(mod), (button) -> {
-                System.out.println("Toggel Mod " + title + " enabled to " + !mod.isEnabled());
+                ClientUtils.logDev("Toggel Mod " + mod.getIdentifier() + " enabled to " + !mod.isEnabled());
                 mod.setEnabled(!mod.isEnabled());
+                if (mod.isEnabled()) {
+                    screen.selectedRenderers.add(mod);
+                } else {
+                    screen.selectedRenderers.remove(mod);
+                }
                 toggleButton.setMessage(getAddRemoveButtonComponent(mod));
-            }).bounds(screen.width/2 + list.width/2 - 100, list.getY() + 10, 20, 20).build();
+            }).bounds(screen.width/2 + list.width/2 - 40, list.getY() + 10, 20, 20).build();
             this.editButton = Button.builder(Component.literal("Details"), (button) -> {
                 Client.setScreen(new MelonClientModCustomizerScreen(screen, mod));
-            }).bounds(screen.width/2 + list.width/2 - 40, list.getY() + 10, 50, 20).build();
+            }).bounds(screen.width/2 + list.width/2 - 60, list.getY() + 10, 50, 20).build();
         }
 
-        public Component getAddRemoveButtonComponent(ModuleDraggable mod) {
+        public Component getAddRemoveButtonComponent(ModDraggable mod) {
             if (!mod.isEnabled()) return Component.literal("+").withStyle(style -> style.withColor(ChatFormatting.GREEN));
             return Component.literal("-").withStyle(style -> style.withColor(ChatFormatting.RED));
         }
@@ -167,15 +174,15 @@ public class ModSelectionList extends ObjectSelectionList<ModSelectionList.Entry
         @Override
         public void render(GuiGraphics guiGraphics, int x, int y, int k, int l, int m, int mouseX, int mouseY, boolean hovered, float f) {
             //String description = this.mod.getOptions().description;
-            //guiGraphics.drawString(minecraft.font, mod.getTitle(), (k + 32 + 3), (y + 1), 16777215);
-            guiGraphics.drawString(minecraft.font, mod.getName(), (k + 32 + 3), (y + 9 + 1), 16777215);
-            //guiGraphics.drawString(minecraft.font, name, (k + 32 + 3), (j + 9 + 9 + 1), 16777215);
+            guiGraphics.drawString(minecraft.font, mod.getName(), (k + 32 + 3), (y + 4 + 1), 16777215);
+            //guiGraphics.drawString(minecraft.font, Component.literal(mod.getIdentifier()).withStyle(ChatFormatting.GRAY), (k + 32 + 3), (y + 9 + 1), 16777215);
+            guiGraphics.drawString(minecraft.font, Component.literal(mod.isEnabled() ? "Enabled" : "Disabled").withStyle(style -> style.withItalic(true).withColor(ChatFormatting.GRAY)), (k + 32 + 3), (y + 9 + 9 + 1), 16777215);
             guiGraphics.blit(this.iconLocation, k, y, 0.0F, 0.0F, 32, 32, 32, 32);
             //if (this.minecraft.options.touchscreen().get() || hovered) {
-            toggleButton.setX(k + width - 50);
+            toggleButton.setX(k + width - 40);
             toggleButton.setY(y + m/2 - toggleButton.getHeight()/2);
             toggleButton.render(guiGraphics, mouseX, mouseY, f);
-            editButton.setX(k + width - 100);
+            editButton.setX(k + width - 90);
             editButton.setY(y + m/2 - editButton.getHeight()/2);
             editButton.render(guiGraphics, mouseX, mouseY, f);
             //}

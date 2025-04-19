@@ -2,13 +2,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModBedwarsResourceCounter extends ModuleDraggable {
+public class ModBedwarsResourceCounter extends ModDraggable {
 
     public ModBedwarsResourceCounter() {
+        super("Resource Counter", "resourcecounter");
         title = "Resources: ";
-        name = "resourcecounter";
         updateDummy();
     }
 
@@ -29,6 +29,6 @@ public class ModBedwarsResourceCounter extends ModuleDraggable {
 
     @Override
     public void renderDummy(ScreenPosition pos, GuiGraphics guiGraphics) {
-        guiGraphics.drawCenteredString(mc.font, "Gold: 5\nIron: 40\nEmerald: 4\nDiamond: 5", pos.getAbsoluteX() + 1, pos.getAbsoluteY(), options.color.getColor() != null ? options.color.getColor() : 0xFF00FFFf);
+        guiGraphics.drawCenteredString(mc.font, "Gold: 5\nIron: 40\nEmerald: 4\nDiamond: 5", pos.getAbsoluteX() + 1, pos.getAbsoluteY(), getOptions().color.getColor() != null ? getOptions().color.getColor() : 0xFF00FFFf);
     }
 }

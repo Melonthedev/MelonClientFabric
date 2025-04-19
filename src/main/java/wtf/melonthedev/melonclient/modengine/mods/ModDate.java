@@ -3,17 +3,17 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.modengine.ModFlag;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-public class ModDate extends ModuleDraggable {
+public class ModDate extends ModDraggable {
 
     public ModDate() {
+        super("Date", "date");
         title = "Date: ";
-        name = "Date";
         updateDummy();
     }
 

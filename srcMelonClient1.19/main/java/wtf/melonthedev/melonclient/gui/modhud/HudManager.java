@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.event.EventManager;
 import wtf.melonthedev.melonclient.gui.GuiUtils;
-import wtf.melonthedev.melonclient.gui.screens.modengine.MelonClientModCustomizerScreen;
+import wtf.melonthedev.melonclient.gui.modengine.MelonClientModCustomizerScreen;
 import wtf.melonthedev.melonclient.modengine.ModInstanceManager;
 import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 

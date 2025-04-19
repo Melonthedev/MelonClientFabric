@@ -1,5 +1,6 @@
 package wtf.melonthedev.melonclient.modengine;
 
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 import wtf.melonthedev.melonclient.modengine.mods.*;
 
 public enum ModFlag {
@@ -15,14 +16,14 @@ public enum ModFlag {
     TOGGLE_FREE_PERSPECTIVE("Toggle perspective", ModPerspective.class);
 
     private final String title;
-    private final Class<? extends ModuleDraggable> modOfFlag;
+    private final Class<? extends ModDraggable> modOfFlag;
 
-     ModFlag(String title, Class<? extends ModuleDraggable> modOfFlag) {
+     ModFlag(String title, Class<? extends ModDraggable> modOfFlag) {
         this.title = title;
         this.modOfFlag = modOfFlag;
     }
 
-    public Class<? extends ModuleDraggable> getModOfFlag() {
+    public Class<? extends ModDraggable> getModOfFlag() {
         return modOfFlag;
     }
 

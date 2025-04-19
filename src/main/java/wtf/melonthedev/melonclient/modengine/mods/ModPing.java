@@ -3,13 +3,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModPing extends ModuleDraggable {
+public class ModPing extends ModDraggable {
 
     public ModPing() {
+        super("Network Ping", "ping");
         title = "Ping: ";
-        name = "Ping";
         updateDummy();
     }
 

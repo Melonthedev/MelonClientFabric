@@ -2,13 +2,13 @@ package wtf.melonthedev.melonclient.modengine.mods;
 
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
-public class ModHelloWorld extends ModuleDraggable {
+public class ModHelloWorld extends ModDraggable {
 
     public ModHelloWorld() {
+        super("Test Mod", "helloworld");
         title = "Hello World: ";
-        name = "Helloworld";
         updateDummy();
     }
 

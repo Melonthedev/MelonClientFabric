@@ -3,15 +3,15 @@ package wtf.melonthedev.melonclient.modengine.mods;
 import net.minecraft.client.gui.GuiGraphics;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.modengine.ModFlag;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 
 import java.time.LocalDateTime;
 
-public class ModClock extends ModuleDraggable {
+public class ModClock extends ModDraggable {
 
     public ModClock() {
+        super("Time", "clock");
         title = "Time: ";
-        name = "Clock";
         updateDummy();
     }
 

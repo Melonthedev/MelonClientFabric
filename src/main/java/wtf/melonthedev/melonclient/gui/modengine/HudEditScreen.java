@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modengine;
+package wtf.melonthedev.melonclient.gui.modengine;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.DeltaTracker;
@@ -15,7 +15,7 @@ import wtf.melonthedev.melonclient.modengine.rendering.HudManager;
 import wtf.melonthedev.melonclient.modengine.rendering.IRenderer;
 import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
-import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.hud.ModDraggable;
 import wtf.melonthedev.melonclient.utils.BackgroundColor;
 
 import java.awt.Color;
@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
 public class HudEditScreen extends MelonScreen {
 
     private final Minecraft mc = Client.getMinecraft();
-    private final HashMap<IRenderer, ScreenPosition> rendererPositions = new HashMap<>();
-    private final List<IRenderer> selectedRenderers = new ArrayList<>();
+    private final HashMap<ModDraggable, ScreenPosition> modPositions = new HashMap<>();
+    public final List<IRenderer> selectedRenderers = new ArrayList<>();
 
     // Selection Box
     private int prevX, prevY;
@@ -58,18 +58,19 @@ public class HudEditScreen extends MelonScreen {
             else closeModSearcher();
         }).bounds(width / 2 - 25, height / 2 - 10, 50, 20).build());
 
-        modSearchBox = this.addRenderableWidget(new EditBox(this.font, width / 2 - 100, height / 6 + 30, 200, 20, Component.literal("Search For Mods...")));
+        modSearchBox = this.addRenderableWidget(new EditBox(this.font, width / 2 - 115, height / 6 + 30, 230, 20, Component.literal("Search For Mods...")));
         modSearchBox.setVisible(false);
         modSearchBox.setResponder(s -> list.refreshList(s));
 
-        list = new ModSelectionList(this, 220, height / 6 * 5 - 60, width/2 - 110, height / 6 + 60, 36, () -> this.modSearchBox.getValue(), this.list);
+        list = new ModSelectionList(this, 230, height - (height / 6 + 52), width/2 - 115, height / 6 + 52, 36, () -> this.modSearchBox.getValue(), this.list);
 
         Collection<IRenderer> registeredRenderers = hudManager.getRegisterdRenderers();
         for (IRenderer ren : registeredRenderers) {
-            ScreenPosition pos = ren.load().position;
+            if (!(ren instanceof ModDraggable mod)) continue;
+            ScreenPosition pos = mod.getPosition();
             if (pos == null) pos = ScreenPosition.fromRelativePosition(5, 5);
             adjustBounds(ren, pos);
-            this.rendererPositions.put(ren, pos);
+            this.modPositions.put(mod, pos);
         }
 
         this.setInitialFocus(this.modSearchBox);
@@ -112,8 +113,8 @@ public class HudEditScreen extends MelonScreen {
     }
 
     public void renderDummies(GuiGraphics guiGraphics) {
-        for (IRenderer renderer : rendererPositions.keySet()) {
-            ScreenPosition pos = rendererPositions.get(renderer);
+        for (IRenderer renderer : modPositions.keySet()) {
+            ScreenPosition pos = modPositions.get(renderer);
             if (renderer.isEnabled()) {
                 this.drawHollowRect(guiGraphics, pos.getAbsoluteX() - 2, pos.getAbsoluteY() - 2, renderer.getWidth() + 4, renderer.getHeight() + 3, BackgroundColor.GRAY_NORMAL.getColor());
                 renderer.renderDummy(pos, guiGraphics);
@@ -124,7 +125,7 @@ public class HudEditScreen extends MelonScreen {
 
     public void renderSelectedForRenderer(GuiGraphics guiGraphics, IRenderer renderer) {
         if (renderer == null) return;
-        ScreenPosition pos = rendererPositions.get(renderer);
+        ScreenPosition pos = modPositions.get(renderer);
         this.drawHollowRect(guiGraphics, pos.getAbsoluteX() - 2, pos.getAbsoluteY() - 2, renderer.getWidth() + 4, renderer.getHeight() + 3, Color.CYAN.getRGB());
     }
 
@@ -146,14 +147,14 @@ public class HudEditScreen extends MelonScreen {
     private void drawSelectionField(GuiGraphics guiGraphics) {
         if (isLeftMouseDown) {
             drawHollowRect(guiGraphics, prevX, prevY, x - prevX, y - prevY, BackgroundColor.GRAY_NORMAL.getColor());
-            for (IRenderer renderer : rendererPositions.keySet().stream().filter(new SelectionOverFinder(x, y, prevX, prevY)).collect(Collectors.toList())) {
+            for (IRenderer renderer : modPositions.keySet().stream().filter(new SelectionOverFinder(x, y, prevX, prevY)).collect(Collectors.toList())) {
                 if (!renderer.isEnabled()) continue;
-                ScreenPosition pos = rendererPositions.get(renderer);
+                ScreenPosition pos = modPositions.get(renderer);
                 this.drawHollowRect(guiGraphics, pos.getAbsoluteX() - 2, pos.getAbsoluteY() - 2, renderer.getWidth() + 4, renderer.getHeight() + 3, 0xF00000FF);
             }
         } else {
             shouldDrawSelection = false;
-            for (IRenderer renderer : rendererPositions.keySet().stream().filter(new SelectionOverFinder(x, y, prevX, prevY)).collect(Collectors.toList())) {
+            for (IRenderer renderer : modPositions.keySet().stream().filter(new SelectionOverFinder(x, y, prevX, prevY)).collect(Collectors.toList())) {
                 if (!selectedRenderers.contains(renderer) && renderer.isEnabled()) selectedRenderers.add(renderer);
                 selectedMultiple = true;
             }
@@ -162,7 +163,7 @@ public class HudEditScreen extends MelonScreen {
 
     private void drawSelectedModsIndicator(GuiGraphics guiGraphics) {
         for (IRenderer renderer : selectedRenderers) {
-            ScreenPosition pos = rendererPositions.get(renderer);
+            ScreenPosition pos = modPositions.get(renderer);
             this.drawHollowRect(guiGraphics, pos.getAbsoluteX() - 2, pos.getAbsoluteY() - 2, renderer.getWidth() + 4, renderer.getHeight() + 3, Color.CYAN.getRGB());
         }
     }
@@ -173,23 +174,23 @@ public class HudEditScreen extends MelonScreen {
             return;
         selectedMultiple = false;
         selectedRenderers.clear();
-        List<IRenderer> renderablesUnderMouse = rendererPositions.keySet().stream().filter(new MouseOverFinder(x, y)).filter(IRenderer::isEnabled).toList();
-        if (renderablesUnderMouse.isEmpty()) return;
-        selectedRenderers.add(renderablesUnderMouse.getFirst());
+        List<ModDraggable> modsUnderMouse = modPositions.keySet().stream().filter(new MouseOverFinder(x, y)).filter(ModDraggable::isEnabled).toList();
+        if (modsUnderMouse.isEmpty()) return;
+        selectedRenderers.add(modsUnderMouse.getFirst());
     }
 
     private boolean isOverMod(int x, int y) {
-        for (IRenderer renderer : rendererPositions.keySet())
+        for (IRenderer renderer : modPositions.keySet())
             if (renderer.isEnabled() && new MouseOverFinder(x, y).test(renderer))
                 return true;
         return false;
     }
 
-    private List<ModuleDraggable> getOverMods(int x, int y) {
-        List<ModuleDraggable> mods = new ArrayList<>();
-        for (IRenderer renderer : rendererPositions.keySet())
+    private List<ModDraggable> getOverMods(int x, int y) {
+        List<ModDraggable> mods = new ArrayList<>();
+        for (IRenderer renderer : modPositions.keySet())
             if (new MouseOverFinder(x, y).test(renderer))
-                mods.add((ModuleDraggable) renderer);
+                mods.add((ModDraggable) renderer);
         return mods;
     }
 
@@ -199,13 +200,20 @@ public class HudEditScreen extends MelonScreen {
     }
 
     private void moveRendererBy(IRenderer renderer, int x, int y) {
-        ScreenPosition pos = rendererPositions.get(renderer);
+        ScreenPosition pos = modPositions.get(renderer);
         pos.setAbsolute(pos.getAbsoluteX() + x , pos.getAbsoluteY() + y);
         adjustBounds(renderer, pos);
     }
 
     @Override
     public boolean mouseClicked(double x, double y, int button) {
+        // Prevent HUD Editor interactions when on ModManager Widgets
+        for (Renderable renderable : getRenderableWidgets()) {
+            if (!(renderable instanceof AbstractWidget abstractWidget)) continue;
+            if (abstractWidget.isMouseOver(x, y)) return super.mouseClicked(x, y, button);
+        }
+
+
         this.shouldDrawSelection = false;
         this.prevX = (int) x;
         this.prevY = (int) y;
@@ -218,9 +226,9 @@ public class HudEditScreen extends MelonScreen {
             isLeftMouseDown = true;
         }
         if (button == 1) {
-            ModuleDraggable[] mods = selectedRenderers.toArray(ModuleDraggable[]::new);
+            ModDraggable[] mods = selectedRenderers.toArray(ModDraggable[]::new);
             if (selectedRenderers.size() > 1) Client.setScreen(new MelonClientModCustomizerScreen(this, mods));
-            else if (selectedRenderers.size() > 0) Client.setScreen(new MelonClientModCustomizerScreen(this, (ModuleDraggable) selectedRenderers.get(0)));
+            else if (selectedRenderers.size() > 0) Client.setScreen(new MelonClientModCustomizerScreen(this, (ModDraggable) selectedRenderers.getFirst()));
             else return super.mouseClicked(x, y, button);
             isLeftMouseDown = false;
         }
@@ -259,10 +267,7 @@ public class HudEditScreen extends MelonScreen {
     public boolean keyPressed(int keycode, int p_96553_, int p_96554_) {
         switch (keycode) {
             case InputConstants.KEY_ESCAPE -> {
-                rendererPositions.forEach((renderer, pos) -> {
-                    renderer.load().position = pos;
-                    renderer.save(renderer.load());
-                });
+                modPositions.forEach(ModDraggable::setPosition);
                 Client.setScreen(null);
             }
             case InputConstants.KEY_UP -> moveSelectedRenderersBy(0, -1);
@@ -275,10 +280,7 @@ public class HudEditScreen extends MelonScreen {
 
     @Override
     public void onClose() {
-        rendererPositions.forEach((renderer, pos) -> {
-            renderer.load().position = pos;
-            renderer.save(renderer.load());
-        });
+        modPositions.forEach(ModDraggable::setPosition);
     }
 
     private class MouseOverFinder implements Predicate<IRenderer> {
@@ -291,7 +293,7 @@ public class HudEditScreen extends MelonScreen {
         }
         @Override
         public boolean test(IRenderer renderer) {
-            ScreenPosition pos = rendererPositions.get(renderer);
+            ScreenPosition pos = modPositions.get(renderer);
             int absoluteX = pos.getAbsoluteX();
             int absoluteY = pos.getAbsoluteY();
             return mouseX >= absoluteX && mouseX <= absoluteX + renderer.getWidth()
@@ -311,7 +313,7 @@ public class HudEditScreen extends MelonScreen {
         }
         @Override
         public boolean test(IRenderer renderer) {
-            ScreenPosition pos = rendererPositions.get(renderer);
+            ScreenPosition pos = modPositions.get(renderer);
             int absoluteX = pos.getAbsoluteX();
             int absoluteY = pos.getAbsoluteY();
             return     (absoluteX >= x && absoluteX <= xEnd
