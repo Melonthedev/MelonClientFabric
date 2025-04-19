@@ -1,5 +1,6 @@
 package wtf.melonthedev.melonclient.melonclientwrapper;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -7,6 +8,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -16,6 +20,9 @@ import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.gui.GuiUtils;
 import wtf.melonthedev.melonclient.utils.ClientUtils;
 import wtf.melonthedev.melonclient.utils.RenderUtil;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class MelonScreen extends Screen {
 
@@ -29,6 +36,8 @@ public class MelonScreen extends Screen {
     private boolean drawTitleString = false;
     private boolean drawTitleStringUnderLogo = false;
     private boolean drawDoneButton = false;
+    private boolean drawBackground = true;
+    List<Renderable> renderables = Lists.newArrayList();
 
     //Static rotation fields
     private static float rotationSynced;
@@ -74,6 +83,9 @@ public class MelonScreen extends Screen {
         this.drawTitleString = drawTitleString;
         this.drawTitleStringUnderLogo = drawTitleStringUnderLogo;
     }
+    public void shouldDrawBackground(boolean drawBackground) {
+        this.drawBackground = drawBackground;
+    }
 
     @Override
     public void init() {
@@ -90,13 +102,42 @@ public class MelonScreen extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int i, int j, float f) {
-        super.render(guiGraphics, i, j, f);
+        if (drawBackground)
+            super.render(guiGraphics, i, j, f);
+        else
+            renderWithoutBackground(guiGraphics, i, j, f);
         if (drawMelonString)
             GuiUtils.drawMelonString(guiGraphics);
         if (drawTitleString) guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, drawTitleStringUnderLogo ? 90 : 15, 16777215);
     }
 
+    public void renderWithoutBackground(GuiGraphics guiGraphics, int i, int j, float f) {
+        for (Renderable renderable : this.renderables) {
+            renderable.render(guiGraphics, i, j, f);
+        }
+    }
 
+    @Override
+    protected <T extends GuiEventListener & Renderable & NarratableEntry> T addRenderableWidget(T guiEventListener) {
+        renderables.add(guiEventListener);
+        return super.addRenderableWidget(guiEventListener);
+    }
+
+    @Override
+    protected void removeWidget(GuiEventListener guiEventListener) {
+        renderables.remove(guiEventListener);
+        super.removeWidget(guiEventListener);
+    }
+
+    @Override
+    protected void clearWidgets() {
+        renderables.clear();
+        super.clearWidgets();
+    }
+
+    public List<Renderable> getRenderableWidgets() {
+        return renderables;
+    }
 
     @Override
     public void onClose() {

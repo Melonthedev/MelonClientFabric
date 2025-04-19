@@ -4,16 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.BossEvent;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.utils.RenderUtil;
-
-import java.util.UUID;
 
 public class MelonClientWrapper {
 
@@ -54,15 +50,12 @@ public class MelonClientWrapper {
     }
 
     public static void renderDummyBossHealthAtPosition(GuiGraphics guiGraphics, int x, int y) {
-        LerpingBossEvent lerpingbossevent = new LerpingBossEvent(UUID.randomUUID(), Component.literal("Ender Dragon"), 100, BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS, false, false, false);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(ResourceLocation.parse("textures/gui/bars.png"), x + 2, y + 11, 0, lerpingbossevent.getColor().ordinal() * 5 * 2, 182, 5);
-        int i2 = (int)(lerpingbossevent.getProgress() * 183.0F);
-        if (i2 > 0) guiGraphics.blit(ResourceLocation.parse("textures/gui/bars.png"), x + 2, y + 11, 0, lerpingbossevent.getColor().ordinal() * 5 * 2 + 5, 182, 5);
-        Component component = lerpingbossevent.getName();
-        int l = Client.getMinecraft().font.width(component);
-        int i1 = x + 91 + 2 - l / 2;
-        guiGraphics.drawStringWithBackdrop(Client.getMinecraft().font, component, i1, y + 2,1, 16777215); // ?
+        guiGraphics.blit(ResourceLocation.parse("textures/gui/sprites/boss_bar/pink_progress.png"), x + 2, y + 11, 0, 0, 182, 5, 182, 5);
+        Component component = Component.literal("Bossbar");
+        int length = Client.getMinecraft().font.width(component);
+        int xStr = x + 91 + 2 - length / 2;
+        guiGraphics.drawStringWithBackdrop(Client.getMinecraft().font, component, xStr, y + 2,1, 16777215);
     }
 
 }
