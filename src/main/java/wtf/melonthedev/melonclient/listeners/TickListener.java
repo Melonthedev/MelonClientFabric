@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.event.EventTarget;
 import wtf.melonthedev.melonclient.event.events.ClientTickEvent;
-import wtf.melonthedev.melonclient.utils.ClientSettings;
+import wtf.melonthedev.melonclient.settings.ClientSettings;
 
 public class TickListener {
 

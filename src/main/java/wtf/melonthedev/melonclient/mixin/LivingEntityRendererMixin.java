@@ -11,8 +11,9 @@ import net.minecraft.world.scores.Team;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.gui.screens.SelectCapeScreen;
-import wtf.melonthedev.melonclient.gui.screens.SkinCapeChangeScreen;
+import wtf.melonthedev.melonclient.gui.screens.cape.SelectCapeScreen;
+import wtf.melonthedev.melonclient.gui.screens.cape.SkinCapeChangeScreen;
+import wtf.melonthedev.melonclient.mixin.accessors.EntityRendererAccessor;
 
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin {

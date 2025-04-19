@@ -1,12 +1,12 @@
-package wtf.melonthedev.melonclient.mods;
+package wtf.melonthedev.melonclient.modengine;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import org.joml.Matrix4f;
-import wtf.melonthedev.melonclient.gui.modhud.IRenderer;
-import wtf.melonthedev.melonclient.gui.modhud.ScreenPosition;
+import wtf.melonthedev.melonclient.modengine.rendering.IRenderer;
+import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.utils.FileManager;
 
 import java.io.File;

@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import wtf.melonthedev.melonclient.gui.modhud.HudManager;
-import wtf.melonthedev.melonclient.mods.ModInstanceManager;
+import wtf.melonthedev.melonclient.modengine.rendering.HudManager;
+import wtf.melonthedev.melonclient.modengine.ModInstanceManager;
 
 @Mixin(Gui.class)
 public abstract class GuiMixin {

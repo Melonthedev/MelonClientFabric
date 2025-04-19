@@ -1,10 +1,10 @@
-package wtf.melonthedev.melonclient.mods.modules.vanilla;
+package wtf.melonthedev.melonclient.modengine.mods.vanilla;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import wtf.melonthedev.melonclient.gui.modhud.HudManager;
-import wtf.melonthedev.melonclient.gui.modhud.ScreenPosition;
+import wtf.melonthedev.melonclient.modengine.rendering.HudManager;
+import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonClientWrapper;
-import wtf.melonthedev.melonclient.mods.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 
 public class ModBossbar extends ModuleDraggable {
     public ModBossbar() {

@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modules;
+package wtf.melonthedev.melonclient.gui.screens.modengine;
 
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;

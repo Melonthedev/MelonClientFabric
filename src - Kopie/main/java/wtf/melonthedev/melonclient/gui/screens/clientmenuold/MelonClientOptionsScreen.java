@@ -7,7 +7,7 @@ import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.gui.modhud.HudManager;
+import wtf.melonthedev.melonclient.modengine.rendering.HudManager;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
 
 public class MelonClientOptionsScreen extends MelonScreen {

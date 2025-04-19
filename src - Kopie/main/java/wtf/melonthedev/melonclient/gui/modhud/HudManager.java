@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.modhud;
+package wtf.melonthedev.melonclient.modengine.rendering;
 
 import com.google.common.collect.Sets;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -6,9 +6,9 @@ import net.minecraft.client.Minecraft;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.event.EventManager;
 import wtf.melonthedev.melonclient.gui.GuiUtils;
-import wtf.melonthedev.melonclient.gui.screens.modules.MelonClientModCustomizerScreen;
-import wtf.melonthedev.melonclient.mods.ModInstanceManager;
-import wtf.melonthedev.melonclient.mods.ModuleDraggable;
+import wtf.melonthedev.melonclient.gui.screens.modengine.MelonClientModCustomizerScreen;
+import wtf.melonthedev.melonclient.modengine.ModInstanceManager;
+import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 
 import java.util.Arrays;
 import java.util.Collection;

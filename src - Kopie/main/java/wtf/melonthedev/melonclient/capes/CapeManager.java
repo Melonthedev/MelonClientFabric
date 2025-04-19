@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.capes;
+package wtf.melonthedev.melonclient.cape;
 
 import net.minecraft.client.player.AbstractClientPlayer;
 import wtf.melonthedev.melonclient.ApiWrapper;

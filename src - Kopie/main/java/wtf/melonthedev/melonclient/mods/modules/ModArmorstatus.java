@@ -1,11 +1,11 @@
-package wtf.melonthedev.melonclient.mods.modules;
+package wtf.melonthedev.melonclient.modengine.mods;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import wtf.melonthedev.melonclient.gui.modhud.ScreenPosition;
-import wtf.melonthedev.melonclient.mods.ModFlag;
-import wtf.melonthedev.melonclient.mods.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
+import wtf.melonthedev.melonclient.modengine.ModFlag;
+import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 
 import java.util.List;
 

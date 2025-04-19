@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modules;
+package wtf.melonthedev.melonclient.gui.screens.modengine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
@@ -7,10 +7,10 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.gui.modhud.HudEditScreen;
+import wtf.melonthedev.melonclient.modengine.rendering.HudEditScreen;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
-import wtf.melonthedev.melonclient.mods.ModFlag;
-import wtf.melonthedev.melonclient.mods.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.ModFlag;
+import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 
 public class MelonClientModCustomizerScreen extends MelonScreen {
 

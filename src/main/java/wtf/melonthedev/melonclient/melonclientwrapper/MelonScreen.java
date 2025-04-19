@@ -1,11 +1,8 @@
 package wtf.melonthedev.melonclient.melonclientwrapper;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Renderable;
@@ -15,13 +12,11 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.gui.GuiUtils;
+import wtf.melonthedev.melonclient.utils.GuiUtils;
 import wtf.melonthedev.melonclient.utils.ClientUtils;
 import wtf.melonthedev.melonclient.utils.RenderUtil;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class MelonScreen extends Screen {

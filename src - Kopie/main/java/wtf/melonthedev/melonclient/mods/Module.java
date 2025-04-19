@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.mods;
+package wtf.melonthedev.melonclient.modengine;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

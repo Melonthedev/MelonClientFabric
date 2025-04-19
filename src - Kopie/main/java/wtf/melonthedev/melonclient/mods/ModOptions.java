@@ -1,7 +1,7 @@
-package wtf.melonthedev.melonclient.mods;
+package wtf.melonthedev.melonclient.modengine;
 
 import net.minecraft.ChatFormatting;
-import wtf.melonthedev.melonclient.gui.modhud.ScreenPosition;
+import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 import wtf.melonthedev.melonclient.utils.BackgroundColor;
 
 import java.nio.file.Path;

@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.modhud;
+package wtf.melonthedev.melonclient.modengine.rendering;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;

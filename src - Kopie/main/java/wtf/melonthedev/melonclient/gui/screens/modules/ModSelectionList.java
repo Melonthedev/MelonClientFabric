@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.screens.modules;
+package wtf.melonthedev.melonclient.gui.screens.modengine;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,9 +17,9 @@ import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.gui.GuiUtils;
-import wtf.melonthedev.melonclient.gui.modhud.HudEditScreen;
-import wtf.melonthedev.melonclient.mods.ModInstanceManager;
-import wtf.melonthedev.melonclient.mods.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.rendering.HudEditScreen;
+import wtf.melonthedev.melonclient.modengine.ModInstanceManager;
+import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 
 import java.awt.*;
 import java.time.Duration;

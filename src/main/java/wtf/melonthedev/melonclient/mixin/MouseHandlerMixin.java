@@ -3,21 +3,16 @@ package wtf.melonthedev.melonclient.mixin;
 import com.mojang.blaze3d.Blaze3D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.SmoothDouble;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.level.gameevent.GameEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.mods.ModInstanceManager;
-import wtf.melonthedev.melonclient.utils.ClientSettings;
+import wtf.melonthedev.melonclient.settings.ClientSettings;
 import wtf.melonthedev.melonclient.utils.MelonZoomUtils;
 
 @Mixin(MouseHandler.class)

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.mods.ModInstanceManager;
+import wtf.melonthedev.melonclient.modengine.ModInstanceManager;
 import wtf.melonthedev.melonclient.utils.ClientSettings;
 import wtf.melonthedev.melonclient.utils.MelonZoomUtils;
 

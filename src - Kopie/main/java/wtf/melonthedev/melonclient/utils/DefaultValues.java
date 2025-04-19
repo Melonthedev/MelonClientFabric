@@ -2,7 +2,7 @@ package wtf.melonthedev.melonclient.utils;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import wtf.melonthedev.melonclient.gui.modhud.ScreenPosition;
+import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
 
 public class DefaultValues {
 

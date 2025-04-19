@@ -1,9 +1,9 @@
-package wtf.melonthedev.melonclient.mods.modules;
+package wtf.melonthedev.melonclient.modengine.mods;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.CameraType;
-import wtf.melonthedev.melonclient.gui.modhud.ScreenPosition;
-import wtf.melonthedev.melonclient.mods.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.rendering.ScreenPosition;
+import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 import wtf.melonthedev.melonclient.utils.ClientSettings;
 import wtf.melonthedev.melonclient.utils.MelonZoomUtils;
 

@@ -1,7 +1,7 @@
 package wtf.melonthedev.melonclient.utils;
 
-import wtf.melonthedev.melonclient.mods.ModFlag;
-import wtf.melonthedev.melonclient.mods.ModInstanceManager;
+import wtf.melonthedev.melonclient.modengine.ModFlag;
+import wtf.melonthedev.melonclient.modengine.ModInstanceManager;
 
 public class ClientUtils {
 

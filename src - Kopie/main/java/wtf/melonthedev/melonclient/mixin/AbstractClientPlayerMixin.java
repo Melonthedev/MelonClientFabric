@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.capes.CapeManager;
-import wtf.melonthedev.melonclient.capes.MelonCape;
-import wtf.melonthedev.melonclient.capes.MelonCapeAnimated;
+import wtf.melonthedev.melonclient.cape.CapeManager;
+import wtf.melonthedev.melonclient.cape.MelonCape;
+import wtf.melonthedev.melonclient.cape.MelonCapeAnimated;
 import wtf.melonthedev.melonclient.utils.ClientSettings;
 import wtf.melonthedev.melonclient.utils.MelonZoomUtils;
 

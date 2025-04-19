@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.capes;
+package wtf.melonthedev.melonclient.cape;
 
 import net.minecraft.resources.ResourceLocation;
 import wtf.melonthedev.melonclient.ApiWrapper;

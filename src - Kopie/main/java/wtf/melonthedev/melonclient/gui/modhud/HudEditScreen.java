@@ -1,4 +1,4 @@
-package wtf.melonthedev.melonclient.gui.modhud;
+package wtf.melonthedev.melonclient.modengine.rendering;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -8,10 +8,10 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 import wtf.melonthedev.melonclient.Client;
 import wtf.melonthedev.melonclient.gui.GuiUtils;
-import wtf.melonthedev.melonclient.gui.screens.modules.MelonClientModCustomizerScreen;
-import wtf.melonthedev.melonclient.gui.screens.modules.ModSelectionList;
+import wtf.melonthedev.melonclient.gui.screens.modengine.MelonClientModCustomizerScreen;
+import wtf.melonthedev.melonclient.gui.screens.modengine.ModSelectionList;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
-import wtf.melonthedev.melonclient.mods.ModuleDraggable;
+import wtf.melonthedev.melonclient.modengine.ModuleDraggable;
 import wtf.melonthedev.melonclient.utils.BackgroundColor;
 
 import java.awt.Color;

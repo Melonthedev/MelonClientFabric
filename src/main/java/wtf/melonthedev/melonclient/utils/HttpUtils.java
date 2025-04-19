@@ -1,6 +1,6 @@
 package wtf.melonthedev.melonclient.utils;
 
-import wtf.melonthedev.melonclient.Client;
+import wtf.melonthedev.melonclient.settings.ClientSettings;
 
 import java.net.URI;
 import java.net.http.HttpClient;

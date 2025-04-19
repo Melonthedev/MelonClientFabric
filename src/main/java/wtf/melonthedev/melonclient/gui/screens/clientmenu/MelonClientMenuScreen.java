@@ -1,13 +1,12 @@
 package wtf.melonthedev.melonclient.gui.screens.clientmenu;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import wtf.melonthedev.melonclient.Client;
-import wtf.melonthedev.melonclient.gui.modhud.HudManager;
-import wtf.melonthedev.melonclient.gui.screens.SkinCapeChangeScreen;
+import wtf.melonthedev.melonclient.modengine.rendering.HudManager;
+import wtf.melonthedev.melonclient.gui.screens.cape.SkinCapeChangeScreen;
 import wtf.melonthedev.melonclient.gui.screens.clientmenu.options.MelonClientOptionsScreen;
 import wtf.melonthedev.melonclient.melonclientwrapper.MelonScreen;
 
